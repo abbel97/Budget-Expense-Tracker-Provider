@@ -6,6 +6,7 @@ import '../models/expense_model.dart';
 class ExpenseService {
   static const Map<String, String> _headers = {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   };
 
   bool _ok(int status) => status >= 200 && status < 300;
@@ -16,7 +17,10 @@ class ExpenseService {
         .get(Uri.parse(ApiConstants.baseUrl), headers: _headers)
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to load expenses.');
+    if (!_ok(res.statusCode)) {
+      final body = res.body.isNotEmpty ? res.body : '<empty body>';
+      throw Exception('Failed to load expenses. (${res.statusCode}) $body');
+    }
 
     final List data = json.decode(res.body);
     return data.map((e) => ExpenseModel.fromJson(e)).toList();
@@ -32,7 +36,10 @@ class ExpenseService {
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to create expense.');
+    if (!_ok(res.statusCode)) {
+      final body = res.body.isNotEmpty ? res.body : '<empty body>';
+      throw Exception('Failed to create expense. (${res.statusCode}) $body');
+    }
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
@@ -46,7 +53,10 @@ class ExpenseService {
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to update expense.');
+    if (!_ok(res.statusCode)) {
+      final body = res.body.isNotEmpty ? res.body : '<empty body>';
+      throw Exception('Failed to update expense. (${res.statusCode}) $body');
+    }
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
@@ -59,6 +69,9 @@ class ExpenseService {
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to delete expense.');
+    if (!_ok(res.statusCode)) {
+      final body = res.body.isNotEmpty ? res.body : '<empty body>';
+      throw Exception('Failed to delete expense. (${res.statusCode}) $body');
+    }
   }
 }
