@@ -18,8 +18,8 @@ This project uses MockAPI as the backend service.
 
 <p align="center">
   <img src="screenshots/welcome page.jpg" width="250"/>
-  <img src="screenshots/home page.png" width="250"/>
-  <img src="screenshots/add image.png" width="250"/>
-  <img src="screenshots/edit image.png" width="250"/>
-  <img src="screenshots/delete image.png" width="250"/>
+  <img src="screenshots/home page.jpg" width="250"/>
+  <img src="screenshots/add image.jpg" width="250"/>
+  <img src="screenshots/edit image.jpg" width="250"/>
+  <img src="screenshots/delete image.jpg" width="250"/>
 </p>
