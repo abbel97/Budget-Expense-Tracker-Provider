@@ -11,8 +11,7 @@ class ExpenseService {
 
   bool _ok(int status) => status >= 200 && status < 300;
 
-  // ── READ ──────────────────────────────────────────────────────────────────
-
+  //READ
   Future<List<ExpenseModel>> fetchAll() async {
     final res = await http
         .get(Uri.parse(ApiConstants.expensesEndpoint), headers: _headers)
@@ -26,8 +25,7 @@ class ExpenseService {
     return data.map((e) => ExpenseModel.fromJson(e)).toList();
   }
 
-  // ── CREATE ────────────────────────────────────────────────────────────────
-
+  // CREATE
   Future<ExpenseModel> create(ExpenseModel expense) async {
     final res = await http
         .post(
@@ -43,8 +41,7 @@ class ExpenseService {
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
-  // ── UPDATE ────────────────────────────────────────────────────────────────
-
+  // UPDATE
   Future<ExpenseModel> update(ExpenseModel expense) async {
     final res = await http
         .put(
@@ -60,8 +57,7 @@ class ExpenseService {
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
-  // ── DELETE ────────────────────────────────────────────────────────────────
-
+  // delete
   Future<void> delete(String id) async {
     final res = await http
         .delete(
