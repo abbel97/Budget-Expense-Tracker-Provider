@@ -2,9 +2,9 @@ class ExpenseModel {
   final String? id;
   final String title;
   final double amount;
-  final String type;      // 'income' | 'expense'
+  final String type; 
   final String category;
-  final String date;      // ISO-8601
+  final String date;      
 
   const ExpenseModel({
     this.id,
@@ -20,9 +20,7 @@ class ExpenseModel {
   factory ExpenseModel.fromJson(Map<String, dynamic> json) => ExpenseModel(
         id: json['id']?.toString(),
         title: json['title'] as String? ?? '',
-        // MockAPI returns amount as a JSON Number (int or double).
-        // Casting via num handles both cases cleanly.
-        amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
+        amount: double.tryParse(json['amount'].toString()) ?? 0.0,
         type: json['type'] as String? ?? 'expense',
         category: json['category'] as String? ?? 'Others',
         date: json['date'] as String? ?? DateTime.now().toIso8601String(),

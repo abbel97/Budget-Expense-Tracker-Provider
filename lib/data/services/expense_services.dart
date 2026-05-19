@@ -17,10 +17,7 @@ class ExpenseService {
         .get(Uri.parse(ApiConstants.baseUrl), headers: _headers)
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) {
-      final body = res.body.isNotEmpty ? res.body : '<empty body>';
-      throw Exception('Failed to load expenses. (${res.statusCode}) $body');
-    }
+    if (!_ok(res.statusCode)) throw Exception('Failed to load expenses.');
 
     final List data = json.decode(res.body);
     return data.map((e) => ExpenseModel.fromJson(e)).toList();
@@ -36,10 +33,7 @@ class ExpenseService {
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) {
-      final body = res.body.isNotEmpty ? res.body : '<empty body>';
-      throw Exception('Failed to create expense. (${res.statusCode}) $body');
-    }
+    if (!_ok(res.statusCode)) throw Exception('Failed to create expense.');
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
@@ -53,10 +47,7 @@ class ExpenseService {
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) {
-      final body = res.body.isNotEmpty ? res.body : '<empty body>';
-      throw Exception('Failed to update expense. (${res.statusCode}) $body');
-    }
+    if (!_ok(res.statusCode)) throw Exception('Failed to update expense.');
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
@@ -69,9 +60,6 @@ class ExpenseService {
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) {
-      final body = res.body.isNotEmpty ? res.body : '<empty body>';
-      throw Exception('Failed to delete expense. (${res.statusCode}) $body');
-    }
+    if (!_ok(res.statusCode)) throw Exception('Failed to delete expense.');
   }
 }
