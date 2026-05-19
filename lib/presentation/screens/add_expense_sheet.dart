@@ -21,7 +21,7 @@ class _AddExpenseSheetState extends State<AddExpenseSheet> {
   String _category = kExpenseCategories.first;
   bool   _isSaving = false;
 
-  static const _purple   = Color(0xFF7C3AED);
+  // static const _purple   = Color(0xFF7C3AED);
   static const _income   = Color(0xFF22C55E);
   static const _expense  = Color(0xFFEF4444);
   static const _surface  = Color(0xFF1A1830);
