@@ -4,7 +4,6 @@ import '../../data/models/expense_model.dart';
 import '../../providers/expense_provider.dart';
 
 class AddExpenseSheet extends StatefulWidget {
-  /// Pass an existing expense to open in edit mode; null = add mode.
   final ExpenseModel? existing;
 
   const AddExpenseSheet({super.key, this.existing});

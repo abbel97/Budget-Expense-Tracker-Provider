@@ -6,60 +6,72 @@ import '../models/expense_model.dart';
 class ExpenseService {
   static const Map<String, String> _headers = {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    'Accept'       : 'application/json',
   };
 
   bool _ok(int status) => status >= 200 && status < 300;
 
-  // READ
+  // ── READ ──────────────────────────────────────────────────────────────────
+
   Future<List<ExpenseModel>> fetchAll() async {
     final res = await http
-        .get(Uri.parse(ApiConstants.baseUrl), headers: _headers)
+        .get(Uri.parse(ApiConstants.expensesEndpoint), headers: _headers)
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to load expenses.');
+    if (!_ok(res.statusCode)) {
+      throw Exception('Failed to load expenses. (${res.statusCode})');
+    }
 
     final List data = json.decode(res.body);
     return data.map((e) => ExpenseModel.fromJson(e)).toList();
   }
 
-  // CREATE
+  // ── CREATE ────────────────────────────────────────────────────────────────
+
   Future<ExpenseModel> create(ExpenseModel expense) async {
     final res = await http
         .post(
-          Uri.parse(ApiConstants.baseUrl),
+          Uri.parse(ApiConstants.expensesEndpoint),
           headers: _headers,
           body: json.encode(expense.toJson()),
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to create expense.');
+    if (!_ok(res.statusCode)) {
+      throw Exception('Failed to create expense. (${res.statusCode})');
+    }
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
-  //UPDATE
+  // ── UPDATE ────────────────────────────────────────────────────────────────
+
   Future<ExpenseModel> update(ExpenseModel expense) async {
     final res = await http
         .put(
-          Uri.parse('${ApiConstants.baseUrl}/${expense.id}'),
+          Uri.parse('${ApiConstants.expensesEndpoint}/${expense.id}'),
           headers: _headers,
           body: json.encode(expense.toJson()),
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to update expense.');
+    if (!_ok(res.statusCode)) {
+      throw Exception('Failed to update expense. (${res.statusCode})');
+    }
     return ExpenseModel.fromJson(json.decode(res.body));
   }
 
-  // delete
+  // ── DELETE ────────────────────────────────────────────────────────────────
+
   Future<void> delete(String id) async {
     final res = await http
         .delete(
-          Uri.parse('${ApiConstants.baseUrl}/$id'),
+          Uri.parse('${ApiConstants.expensesEndpoint}/$id'),
           headers: _headers,
         )
         .timeout(const Duration(seconds: 15));
 
-    if (!_ok(res.statusCode)) throw Exception('Failed to delete expense.');
+    if (!_ok(res.statusCode)) {
+      throw Exception('Failed to delete expense. (${res.statusCode})');
+    }
   }
 }
