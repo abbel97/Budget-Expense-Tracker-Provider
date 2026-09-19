@@ -10,6 +10,7 @@ class AppException implements Exception {
       : 'AppException: $message';
 }
 
+
 class NetworkException extends AppException {
   const NetworkException([super.message = 'No internet connection.']);
 }
